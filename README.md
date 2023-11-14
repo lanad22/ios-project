@@ -126,3 +126,6 @@ The tab navigation provides a persistent, easily accessible way to move between 
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+### Worked on Features: 
+[x] User can enter an ingredient or a name of recipe to look for recipes
