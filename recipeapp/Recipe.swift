@@ -5,34 +5,44 @@
 //  Created by Lana Do on 11/13/23.
 //
 
+
 import Foundation
 
-class Recipe {
+struct Recipe: Decodable {
+    let results: [RecipeDescription]
+}
 
-    let ingredients: String?
-    let title: String?
-    let href: String? // Spoonacular may not provide a direct href. Adjust accordingly.
-    let thumbnail: String?
-
-    struct RecipeAPIKeys {
-        static let ingredients = "usedIngredients" // or "usedIngredients" depending on your requirement
-        static let title = "title"
-        static let href =  "sourceUrl" // Use an appropriate field from Spoonacular
-        static let thumbnail = "image"
+// MARK: - results
+extension Recipe {
+    struct RecipeDescription: Decodable {
+        let id: Int
+        let title: String
+        let image: String?
+        /*let instructions: String?
+        let readyInMinutes: Int
+        let servings: Int
+        let extendedIngredients: [Ingredients]
+        //let dishTypes: [String]?
+        let nutrition: NutritionInfo?*/
     }
     
-    init(withDictionary dictionary: [String: Any]) {
-        title = dictionary[RecipeAPIKeys.title] as? String
-        thumbnail = dictionary[RecipeAPIKeys.thumbnail] as? String
-        href = dictionary[RecipeAPIKeys.href] as? String
-
-        if let ingredientsArray = dictionary[RecipeAPIKeys.ingredients] as? [[String: Any]] {
-            let ingredientNames = ingredientsArray.compactMap { $0["name"] as? String }
-            ingredients = ingredientNames.joined(separator: ", ")
-        } else {
-            ingredients = nil
-        }
+    //MARK: - extendedIngredients
+    struct Ingredients: Decodable {
+        let id: Int
+        let name: String
+        let amount: Double
+        let unit: String?
     }
     
-}//End class Recipe
+    //MARK: - nutrition
+    struct NutritionInfo: Decodable {
+        let nutrients: [NutrientsDetails]
+    }
+    
+    //MARK: - nutrients
+    struct NutrientsDetails: Decodable {
+        let amount: Float
+    }
+}
+
 

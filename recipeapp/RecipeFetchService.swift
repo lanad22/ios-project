@@ -7,56 +7,60 @@
 
 import Foundation
 
-class RecipeFetchService {
-    
-    // Base URL for Spoonacular API
-    let baseURL = "https://api.spoonacular.com/recipes"
-    let apiKey = "3857cfd46a694bcba671969e6bf77753" // Replace with your actual API key
-    
-    typealias RecipeResultDictionary = ([Recipe]) -> Void
-    
-    // Fetches recipes by ingredients
-    func fetchRecipe(withIngredients ingredients: String, completion: @escaping RecipeResultDictionary) {
-        let ingredientsEncoded = ingredients.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let url = URL(string: "\(baseURL)/findByIngredients?ingredients=\(ingredientsEncoded)&number=10&apiKey=\(apiKey)")
-        performNetworkCall(with: url, completion: completion)
-    }
-    
-    // Fetches recipes by recipe name
-    func fetchRecipe(withRecipeName recipeName: String, completion: @escaping RecipeResultDictionary) {
-        let recipeNameEncoded = recipeName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let url = URL(string: "\(baseURL)/complexSearch?query=\(recipeNameEncoded)&number=10&apiKey=\(apiKey)")
-        performNetworkCall(with: url, completion: completion)
-    }
-    
-    // Fetches recipes by both ingredients and recipe name
-    func fetchRecipe(withIngredients ingredients: String, recipeName: String, completion: @escaping RecipeResultDictionary) {
-        let ingredientsEncoded = ingredients.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let recipeNameEncoded = recipeName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let url = URL(string: "\(baseURL)/complexSearch?query=\(recipeNameEncoded)&includeIngredients=\(ingredientsEncoded)&number=10&apiKey=\(apiKey)")
-        performNetworkCall(with: url, completion: completion)
-    }
-    
-    // Generic network call function
-    private func performNetworkCall(with url: URL?, completion: @escaping RecipeResultDictionary) {
-        guard let url = url else { return }
-        let networkCall = Network(url: url)
+struct RecipeFetchService {
+    //search by name
+    func fetchRecipes(withRecipeName: String, completion: @escaping (Result<[Recipe.RecipeDescription], Error>) -> Void) {
+        let urlString = "https://api.spoonacular.com/recipes/complexSearch?query=\(withRecipeName)&number=2&apiKey=3857cfd46a694bcba671969e6bf77753"
+        guard let url = URL(string: urlString) else { return }
         
-        networkCall.downloadJSONData { (jsonResponse) in
-            print("Raw API Response: \(jsonResponse)")
-            var recipes = [Recipe]()
-            // Processing the JSON response according to Spoonacular's format
-            if let jsonArray = jsonResponse as? [[String: Any]] {
-                for item in jsonArray {
-                    let recipe = Recipe(withDictionary: item)
-                    recipes.append(recipe)
-                }
-                completion(recipes)
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
-        }
+            
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: nil)))
+                return
+            }
+            if let rawApiResponse = String(data: data, encoding: .utf8) {
+                print("API Response: \(rawApiResponse)")
+            }
+            do {
+                let recipeData = try JSONDecoder().decode(Recipe.self, from: data)
+                completion(.success(recipeData.results))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
     }
-    
-    // Ensure that the NetworkProcessor and Recipe classes are updated
-    // to match the requirements of the Spoonacular API.
+    func searchRecipeById(by id: Int, results: @escaping (Recipe.RecipeDescription) -> Void) {
+        let urlString = "https://api.spoonacular.com/recipes/\(id)/information?includeNutrition=true&apiKey=3857cfd46a694bcba671969e6bf77753"
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard error == nil else {
+                print("Error: \(error!.localizedDescription)")
+                return
+            }
+            
+            // Print the raw data for debugging
+            if let data = data {
+                print("Raw data: \(String(data: data, encoding: .utf8) ?? "No data")")
+                
+                do {
+                    let decodedData = try JSONDecoder().decode(Recipe.RecipeDescription.self, from: data)
+                    results(decodedData)
+                } catch {
+                    print("Decoding error: \(error)")
+                }
+            } else {
+                print("No data received from API")
+            }
+        }.resume()
+    }
 }
+
+
 

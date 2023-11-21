@@ -16,7 +16,6 @@
 		D4610D972B03578A00DE38E6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4610D962B03578A00DE38E6 /* HomeViewController.swift */; };
 		D4610D992B03579E00DE38E6 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4610D982B03579E00DE38E6 /* Recipe.swift */; };
 		D4610D9B2B0357C200DE38E6 /* RecipeFetchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4610D9A2B0357C200DE38E6 /* RecipeFetchService.swift */; };
-		D4610D9D2B0357DF00DE38E6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4610D9C2B0357DF00DE38E6 /* Network.swift */; };
 		D4610D9F2B03583500DE38E6 /* RecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4610D9E2B03583500DE38E6 /* RecipeTableViewController.swift */; };
 		D4610DA12B03587B00DE38E6 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4610DA02B03587B00DE38E6 /* WebViewController.swift */; };
 		D4610DA32B03590900DE38E6 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4610DA22B03590900DE38E6 /* RecipeTableViewCell.swift */; };
@@ -34,7 +33,6 @@
 		D4610D962B03578A00DE38E6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D4610D982B03579E00DE38E6 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		D4610D9A2B0357C200DE38E6 /* RecipeFetchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFetchService.swift; sourceTree = "<group>"; };
-		D4610D9C2B0357DF00DE38E6 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		D4610D9E2B03583500DE38E6 /* RecipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewController.swift; sourceTree = "<group>"; };
 		D4610DA02B03587B00DE38E6 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D4610DA22B03590900DE38E6 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
@@ -81,7 +79,6 @@
 				D4610D962B03578A00DE38E6 /* HomeViewController.swift */,
 				D4610D982B03579E00DE38E6 /* Recipe.swift */,
 				D4610D9A2B0357C200DE38E6 /* RecipeFetchService.swift */,
-				D4610D9C2B0357DF00DE38E6 /* Network.swift */,
 				D4610D9E2B03583500DE38E6 /* RecipeTableViewController.swift */,
 				D4610DA02B03587B00DE38E6 /* WebViewController.swift */,
 			);
@@ -167,7 +164,6 @@
 				D400CB0F2AFA0A380004EED5 /* AppDelegate.swift in Sources */,
 				D400CB112AFA0A380004EED5 /* SceneDelegate.swift in Sources */,
 				D4610D972B03578A00DE38E6 /* HomeViewController.swift in Sources */,
-				D4610D9D2B0357DF00DE38E6 /* Network.swift in Sources */,
 				D4610D992B03579E00DE38E6 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,17 +7,17 @@
 
 import UIKit
 
-import UIKit
-
 class RecipeTableViewController: UITableViewController {
 
     
     //Class Properties
-    var recipes : [Recipe]!
+    var recipes : [Recipe.RecipeDescription]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        recipes = [Recipe]()
+        recipes = [Recipe.RecipeDescription]()
+        print("Received recipes: \(recipes)")
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -33,8 +33,12 @@ class RecipeTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
-        cell.setRecipe(withRecipe: recipes[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeViewCell", for: indexPath) as! RecipeTableViewCell
+        let recipe = recipes[indexPath.row]
+        
+        // Set up your cell with recipe data
+        cell.configure(with: recipe)
+        
         return cell
     }
     
@@ -53,7 +57,7 @@ class RecipeTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toWebView" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let webViewVC = segue.destination as? WebViewController
@@ -61,7 +65,7 @@ class RecipeTableViewController: UITableViewController {
             }
             
         }
-    }
+    }*/
     
 
 }
