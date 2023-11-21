@@ -129,3 +129,4 @@ The tab navigation provides a persistent, easily accessible way to move between 
 
 ### Worked on Features: 
 [x] User can enter an ingredient or a name of recipe to look for recipes
+[x] Results button shows how many recipes we got back from API
